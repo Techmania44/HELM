@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.voting.name}}-deploy
+  labels:
+    name: {{ .Values.voting.name}}-deploy
+    app: {{ .Values.global.label.app }}
+spec:
+  template:
+    metadata:
+      name: {{ .Values.voting.name}}-pod
+      labels:
+        name: {{ .Values.voting.name}}-pod
+        app: {{ .Values.global.label.app }}
+    spec:
+      containers:
+        - name: {{ .Values.voting.name}}
+          image: kodekloud/examplevotingapp_vote:v1
+          ports:
+            - containerPort: 80
+  selector:
+    matchLabels:
+      name: {{ .Values.voting.name}}-pod
+      app: {{ .Values.global.label.app }}
+  replicas: 1

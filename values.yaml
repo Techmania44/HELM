@@ -1,0 +1,20 @@
+global:
+  label:
+    app: demo-voting-app 
+
+postgress:
+  replicas: 1
+  label:
+    name: postgress
+  containerPort: 5432
+
+redis:
+  name: redis
+  replicas: 1
+  containerPort: 6379
+
+result:
+  name: result-app
+
+voting:
+  name: voting-app

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.redis.name }}-deploy
+  labels:
+    name: {{ .Values.redis.name }}-deploy
+    app: {{ .Values.global.label.app }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ .Values.redis.name }}-pod
+      app: {{ .Values.global.label.app }}
+  template:
+    metadata:
+      name: {{ .Values.redis.name }}-pod
+      labels:
+          name: {{ .Values.redis.name }}-pod
+          app: {{ .Values.global.label.app }}
+    spec:
+        containers:
+          - name: {{ .Values.redis.name }}
+            image: {{ .Values.redis.name }}
+            ports:
+              - containerPort: {{ .Values.redis.containerPort }}

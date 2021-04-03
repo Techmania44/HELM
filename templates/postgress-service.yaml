@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    name: {{ .Values.postgress.label.name }}-service
+    app: {{ .Values.global.label.app }}
+spec:
+  ports:
+    - port: {{ .Values.postgress.containerPort }}
+      targetPort: {{ .Values.postgress.containerPort }}
+  selector:
+    name: {{ .Values.postgress.label.name }}-pod
+    app: {{ .Values.global.label.app }}    
